@@ -1,63 +1,76 @@
-Password Strength Checker
+# 🚀 Password Strength Checker
 
-A simple, yet powerful tool to evaluate password strength both via command-line and a web interface.
+[![Python](https://img.shields.io/badge/python-3.8%2B-blue)](https://python.org/) [![Flask](https://img.shields.io/badge/flask-★-green)](https://flask.palletsprojects.com/) [![License: MIT](https://img.shields.io/badge/license-MIT-yellow.svg)](LICENSE)
 
-Features
+A versatile tool to evaluate and improve password security, available as both a **command-line** utility and a **web application**.
 
-Password Analysis using zxcvbn
+---
 
-Score (0–4)
+## 🔍 Table of Contents
 
-Estimated guesses and entropy (bits)
+* [✨ Features](#-features)
+* [⚙️ Installation](#️-installation)
+* [💻 Command-Line Usage](#-command-line-usage)
+* [🌐 Web Interface Usage](#-web-interface-usage)
+* [🎨 Customization](#-customization)
+* [🛠️ Development & Contributing](#️-development--contributing)
+* [📄 License](#-license)
 
-Character classes used (lowercase, uppercase, digits, symbols)
+---
 
-Warnings & suggestions
+## ✨ Features
 
-Common Password Detection (top 10,000) to flag very weak passwords
+* **Robust Analysis** using [zxcvbn](https://github.com/dropbox/zxcvbn):
 
-Command-Line Interface (cli.py)
+  * Score (0–4)
+  * Estimated guesses & entropy (bits)
+  * Character class breakdown (lowercase, uppercase, digits, symbols)
+  * Actionable warnings & suggestions
+* **Common Password Detection** (top 10,000 list)
+* **Command-Line Interface** (`cli.py`):
 
-Interactive prompt or pass password as argument
+  * Interactive or one-shot modes
+  * JSON output & file export
+* **Web Interface** (`app.py` + `templates/index.html`):
 
-JSON output option
+  * Real-time strength bar & labels
+  * Generate strong random passwords
+  * Copy-to-clipboard button
+  * Responsive, modern UI with Bootstrap & FontAwesome
 
-Save report to file (text or JSON)
+---
 
-Web Interface (app.py + templates/index.html)
+## ⚙️ Installation
 
-Real-time strength bar and label
+1. **Clone the repository**
 
-Generate strong random passwords
+   ```bash
+   git clone https://github.com/youruser/password-strength-checker.git
+   cd password-strength-checker
+   ```
+2. **Create & activate a virtual environment**
 
-Copy-to-clipboard functionality
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate    # Windows: venv\Scripts\activate
+   ```
+3. **Install dependencies**
 
-Responsive design with Bootstrap and FontAwesome
+   ```bash
+   pip install -r requirements.txt
+   ```
+4. **Download common passwords list**
 
-Installation
+   ```bash
+   curl -L -o common_passwords.txt \
+     https://raw.githubusercontent.com/danielmiessler/SecLists/master/Passwords/Common-Credentials/10k-most-common.txt
+   ```
 
-Clone the repository
+---
 
-git clone <repo-url>
-cd password-strength-checker
+## 💻 Command-Line Usage
 
-Create & activate a virtual environment
-
-python3 -m venv venv
-source venv/bin/activate    # Windows: venv\Scripts\activate
-
-Install dependencies
-
-pip install zxcvbn-python Flask
-
-Download common passwords list
-
-curl -o common_passwords.txt https://raw.githubusercontent.com/danielmiessler/SecLists/master/Passwords/Common-Credentials/10k-most-common.txt
-
-Usage
-
-Command-Line
-
+```bash
 # Interactive prompt
 python cli.py
 
@@ -67,35 +80,68 @@ python cli.py "My$ecureP@ssw0rd"
 # JSON output
 python cli.py "password123" --json
 
-# Save to file
-python cli.py "correcthorsebatterystaple" -o report.txt
+# Save report to file
+python cli.py "correcthorsebatterystaple" -o report.json
+```
 
-Web Interface
+---
 
-Run Flask app
+## 🌐 Web Interface Usage
 
-python app.py
+1. **Start the Flask server**
 
-Open http://127.0.0.1:5000 in your browser.
+   ```bash
+   python app.py
+   ```
 
-Enter a password to check, generate a new one, or copy the result.
+2. **Open** your browser and navigate to:
 
-Customization
+   > [http://127.0.0.1:5000](http://127.0.0.1:5000)
 
-Adjust strength thresholds in password_strength.py:
+3. **Interact** with the UI to check, generate, or copy passwords.
 
-if score <= 1 or length < 8 or categories_used < 2:
-    overall = 'Weak'
-elif score == 2 or length < 12 or categories_used < 3:
-    overall = 'Fair'
-else:
-    overall = 'Strong'
+---
 
-Change UI styles in templates/index.html and embedded CSS.
+## 🎨 Customization
 
-Extend with additional features (e.g., password history, API endpoint).
+* **Strength thresholds** can be adjusted in `password_strength.py`:
 
-License
+  ```python
+  if score <= 1 or length < 8:
+      overall = 'Weak'
+  elif score == 2 or length < 12:
+      overall = 'Fair'
+  else:
+      overall = 'Strong'
+  ```
+* **UI styling** lives in `templates/index.html` (Bootstrap & embedded CSS).
+* **Extend** functionality by adding:
 
-This project is licensed under the MIT License. Feel free to use and modify!
+  * Password history/log
+  * API endpoints for remote checks
+  * Docker containerization
 
+---
+
+## 🛠️ Development & Contributing
+
+1. Fork the repo and create your feature branch:
+
+   ```bash
+   git checkout -b feature/YourFeature
+   ```
+2. Commit your changes and push:
+
+   ```bash
+   git commit -m "Add new feature"
+   git push origin feature/YourFeature
+   ```
+3. Open a Pull Request and describe your changes.
+
+Please follow the [contribution guidelines](CONTRIBUTING.md).
+
+---
+
+## 📄 License
+
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
